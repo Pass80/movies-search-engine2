@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import autoComplete from '../../services/Api';
 import './Header.css';
 
@@ -12,30 +12,41 @@ const Header = () => {
 
     const autoCompleteHandler = (query) => {
         autoComplete(query).then((list) => {
-            setState({
+            setState((prevState) => ({
+                ...prevState,
                 query: query,
                 autoCompleteList: list,
-            });
-            // to remove the droped list when the user clicks outside the list .
-            if (list.length > 0) {
-                document.addEventListener('click', documentClickHandler);
-            }
+            }));
         });
     };
+    const documentClickHandler = useRef((e) => {
+        console.log(e.target);
 
-    const documentClickHandler = (e) => {
-        console.log(e);
+        const listContainer = document.querySelector('.autocomplete-results');
 
-        setState((prevState) => ({ ...prevState, autoCompleteList: [] }));
-        document.removeEventListener('click', documentClickHandler);
-        console.log('removed');
-    };
+        const searchInput = document.querySelector('.search-input');
+
+        if (
+            listContainer &&
+            !listContainer.contains(e.target) &&
+            searchInput !== e.target
+        ) {
+            setState((prevState) => ({ ...prevState, autoCompleteList: [] }));
+        }
+    });
+    useEffect(() => {
+        document.addEventListener('click', documentClickHandler.current);
+
+        return () => {
+            document.removeEventListener('click', documentClickHandler.current);
+        };
+    }, []);
+
     return (
         <div>
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    console.log('hi');
                 }}
             >
                 <select>
@@ -44,6 +55,7 @@ const Header = () => {
                 </select>
                 <div className="query-container">
                     <input
+                        className="search-input"
                         value={state.query}
                         type="text"
                         placeholder="Search"
@@ -60,9 +72,12 @@ const Header = () => {
                                 autoCompleteHandler(e.target.value);
                             }, 300);
                         }}
-                        // onFocus={(e) => {
-                        //     autoCompleteHandler(e.target.value);
-                        // }}
+                        onFocus={(e) => {
+                            console.log('focus started');
+
+                            autoCompleteHandler(e.target.value);
+                            console.log('focus ended');
+                        }}
                     />
                     {state.autoCompleteList.length > 0 && (
                         <ul className="autocomplete-results">
@@ -73,10 +88,11 @@ const Header = () => {
                                         __html: item.styledName,
                                     }}
                                     onClick={(e) => {
-                                        setState({
+                                        setState((prevState) => ({
+                                            ...prevState,
                                             query: item.name,
                                             autoCompleteList: [],
-                                        });
+                                        }));
                                     }}
                                 ></li>
                             ))}
