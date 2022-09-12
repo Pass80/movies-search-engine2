@@ -10,39 +10,21 @@ export default class App extends Component {
         this.state = {
             query: '',
             autoCompleteList: [],
+            autoCompleteListIndex: 0,
         };
     }
 
-    // documentClickHandler = (e) => {
-    //     const listContainer = document.querySelector('.autocomplete-results');
-    //     const queryInput = document.querySelector('query-container input');
-    //     //  add a condition
-    //     if (!listContainer.contains(e.target) && e.target !== queryInput) {
-    //         this.setState({ autoCompleteList: [] });
-    //         // put this keyword because we used the method as a callback function inside another function
-    //         document.removeEventListener('click', this.documentClickHandler);
-    //         // the eventlistener is removed
-    //     }
-    // };
     // create a function to use it in onChange and onBlur events in the input field
     // so the code block we not be repeated twice
     autoCompleteHandler = (query) => {
         autoComplete(query).then((list) => {
             this.setState({
                 autoCompleteList: list,
+                autoCompleteListIndex: 0,
             });
-            // add an eventlistener to the document object to remove the list
-            //  if the user clicks outside the list
-            // if (list.length > 0) {
-            //     document.addEventListener('click', this.documentClickHandler);
-            // }
         });
     };
 
-    // componentWillMount() {
-    //     //we put this keyword because we used the method as a callback function inside another function
-    //     document.removeEventListener('click', this.documentClickHandler);
-    // }
     render() {
         return (
             <>
@@ -75,43 +57,105 @@ export default class App extends Component {
                                     this.autoCompleteHandler(e.target.value);
                                 }}
                                 onBlur={() => {
-                                    // document.removeEventListener(
-                                    //     'click',
-                                    //     this.documentClickHandler
-                                    // );
-                                    // remove the list when the user leaves the input field by pressing tab
                                     // add time out to insert the content of clicked list item in the input field
                                     // before the list is removed
                                     setTimeout(() => {
                                         this.setState({ autoCompleteList: [] });
                                     }, 100);
                                 }}
+                                onKeyUp={(e) => {
+                                    const key = e.key;
+                                    if (
+                                        key === 'Escape' ||
+                                        key === 'Esc' ||
+                                        key === 27
+                                    ) {
+                                        this.setState({
+                                            autoCompleteList: [],
+                                        });
+                                    } else if (
+                                        key === 'Enter' ||
+                                        key === 'Ent' ||
+                                        key === 13
+                                    ) {
+                                        this.setState({
+                                            autoCompleteList: [],
+                                            query: this.state.autoCompleteList[
+                                                this.state.autoCompleteListIndex
+                                            ].name,
+                                        });
+                                    } else if (
+                                        key === 'ArrowDown' ||
+                                        key === 'ArrowDown' ||
+                                        key === 40
+                                    ) {
+                                        let newIdex =
+                                            this.state.autoCompleteListIndex +
+                                            1;
+                                        // set a condition to check if the autoCompleteListIndex + 1 >
+                                        // autoCompleteList.length if so then newIndex will be set to 0;
+                                        if (
+                                            newIdex >
+                                            this.state.autoCompleteList.length -
+                                                1
+                                        ) {
+                                            newIdex = 0;
+                                        }
+                                        this.setState({
+                                            autoCompleteListIndex: newIdex,
+                                        });
+                                    } else if (
+                                        key === 'ArrowUp' ||
+                                        key === 'ArrowUp' ||
+                                        key === 38
+                                    ) {
+                                        let newIdex =
+                                            this.state.autoCompleteListIndex -
+                                            1;
+                                        // set a condition to check if the newIndex ===  -1
+                                        //  if so then newIndex will be set to = this.state.autoCompleteList.length - 1;
+
+                                        if (newIdex < 0) {
+                                            newIdex =
+                                                this.state.autoCompleteList
+                                                    .length - 1;
+                                        }
+                                        this.setState({
+                                            autoCompleteListIndex: newIdex,
+                                        });
+                                    }
+                                }}
                             />
                             {this.state.autoCompleteList.length > 0 && (
                                 <ul className="autocomplete-results">
-                                    {this.state.autoCompleteList.map((item) => (
-                                        <li
-                                            key={item.id}
-                                            // use this attribute to show the content without the span tag
-                                            // just the span content will be displayed
-                                            dangerouslySetInnerHTML={{
-                                                __html: item.styledName,
-                                            }}
-                                            onClick={(e) => {
-                                                // document.removeEventListener(
-                                                //     'click',
-                                                //     this.documentClickHandler
-                                                // );
-                                                // set the query value in the state to the li-element's inner-html value
-                                                // which will be displayed also in the input field
-                                                this.setState({
-                                                    query: item.name,
-                                                    // set the autoCompleteList to empty array to remove the list from the DOM
-                                                    autoCompleteList: [],
-                                                });
-                                            }}
-                                        ></li>
-                                    ))}
+                                    {this.state.autoCompleteList.map(
+                                        (item, index) => (
+                                            <li
+                                                className={
+                                                    index ===
+                                                    this.state
+                                                        .autoCompleteListIndex
+                                                        ? 'active'
+                                                        : ''
+                                                }
+                                                key={item.id}
+                                                // use this attribute to show the content without the span tag
+                                                // just the span content will be displayed
+                                                dangerouslySetInnerHTML={{
+                                                    __html: item.styledName,
+                                                }}
+                                                onClick={(e) => {
+                                                    // set the query value in the state to the li-element's inner-html value
+                                                    // which will be displayed also in the input field
+                                                    this.setState({
+                                                        query: item.name,
+                                                        // set the autoCompleteList to empty array to remove the list from the DOM
+                                                        autoCompleteList: [],
+                                                    });
+                                                }}
+                                            ></li>
+                                        )
+                                    )}
                                 </ul>
                             )}
                         </div>

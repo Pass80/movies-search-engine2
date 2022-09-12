@@ -30,7 +30,8 @@ body {
     padding: 0 0.5rem;
 }
 
-.autocomplete-results li:hover {
+.autocomplete-results li:hover,
+.autocomplete-results .active {
     background-color: #555;
 }
 
