@@ -1,7 +1,7 @@
 import Api_key from './Api-key';
 
 const autoComplete = (query) => {
-    // check of the entered value is empty and if so returns an empty array
+    // check if the entered value is empty and if so returns an empty array
     if (!query) {
         return Promise.resolve([]);
     }

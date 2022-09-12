@@ -1,6 +1,39 @@
+html {
+    font-size: 62.5%;
+}
+
 body {
     background-color: #7fe6bd;
     background-image: linear-gradient(0deg, #7fe6bd 0%, #47a4ee 91%);
     background-repeat: no-repeat;
     height: 100vh;
+}
+
+.query-container {
+    display: inline-block;
+    position: relative;
+}
+
+.autocomplete-results {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    min-width: 100%;
+}
+
+.autocomplete-results li {
+    line-height: 2.2rem;
+    padding: 0 0.5rem;
+}
+
+.autocomplete-results li:hover {
+    background-color: #555;
+}
+
+.autocomplete-results li span {
+    color: #027517;
 }
