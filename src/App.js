@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
+import Card from './components/card/Card';
+import ReleaseYear from './components/releaseYear/ReleaseYear';
 import SearchInput from './components/searchInput/SearchInput';
 import SortSelector from './components/sortSelector/SortSelector';
+import { getResults } from './services/Api';
 
 export default class App extends Component {
     constructor() {
@@ -13,14 +16,28 @@ export default class App extends Component {
             year: '',
         };
 
-        this.state = {};
+        this.state = {
+            results: [],
+        };
     }
 
     render() {
         return (
             <>
                 <header>
-                    <form onSubmit={(e) => e.preventDefault()}>
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            const { sort, query, year } = this.searchQueries;
+
+                            getResults({ sort, query, year, page: 1 }).then(
+                                (data) =>
+                                    this.setState({
+                                        results: data.results,
+                                    })
+                            );
+                        }}
+                    >
                         <SortSelector
                             onSortSelect={(sort) =>
                                 (this.searchQueries.sort = sort)
@@ -31,11 +48,20 @@ export default class App extends Component {
                                 (this.searchQueries.query = query)
                             }
                         />
-                        <input type="number" placeholder="release year" />
+                        <ReleaseYear
+                            onYearChange={(year) =>
+                                (this.searchQueries.year = year)
+                            }
+                        />
+
                         <button type="submit">Search</button>
                     </form>
                 </header>
-                <section>Card list</section>
+                <section>
+                    {this.state.results.map((card) => (
+                        <Card key={card.id} details={card} />
+                    ))}
+                </section>
                 <footer></footer>
             </>
         );

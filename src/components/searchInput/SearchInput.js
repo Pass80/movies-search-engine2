@@ -144,9 +144,7 @@ class SearchInput extends Component {
                                         // set the autoCompleteList to empty array to remove the list from the DOM
                                         autoCompleteList: [],
                                     });
-                                    this.props.onQueryChange(
-                                        this.state.item.name
-                                    );
+                                    this.props.onQueryChange(this.state.query);
 
                                     console.log('hi');
                                 }}

@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.query-container input {
+    width: 50rem;
+    height: 3rem;
+}
+
 .autocomplete-results {
     position: absolute;
     left: 0;
@@ -15,6 +20,7 @@
 }
 
 .autocomplete-results li {
+    cursor: pointer;
     line-height: 2.2rem;
     padding: 0 0.5rem;
 }
