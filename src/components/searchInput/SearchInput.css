@@ -1,0 +1,29 @@
+.query-container {
+    display: inline-block;
+    position: relative;
+}
+
+.autocomplete-results {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    min-width: 100%;
+}
+
+.autocomplete-results li {
+    line-height: 2.2rem;
+    padding: 0 0.5rem;
+}
+
+.autocomplete-results li:hover,
+.autocomplete-results .active {
+    background-color: #555;
+}
+
+.autocomplete-results li span {
+    color: #027517;
+}
