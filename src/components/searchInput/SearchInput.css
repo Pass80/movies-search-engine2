@@ -1,11 +1,13 @@
 .query-container {
     display: inline-block;
     position: relative;
+    width: 50%;
 }
 
 .query-container input {
     outline: none;
-    width: 50rem;
+    width: 100%;
+    min-width: 20rem;
     height: 3rem;
 }
 
@@ -19,9 +21,17 @@ form button {
     cursor: pointer;
     color: #ffffff;
     padding: 0 3.2rem;
+    border: none;
 }
+
 form button:hover {
     background-color: #3b6d22;
+}
+
+form button:active {
+    position: relative;
+    top: 0.1rem;
+    border-style: none;
 }
 
 .autocomplete-results {

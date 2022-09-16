@@ -34,3 +34,105 @@
 .popularity p span {
     font-size: 1.5rem;
 }
+
+.modal {
+    display: block; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    background-image: url('/public/images/rows-red-seats-theater.jpg');
+    background-position: center;
+    background-size: cover;
+    /* background-color: rgba(140, 142, 138, 0.8); */
+    margin: 6rem auto;
+    padding: 3rem;
+    border: 0.5rem solid rgba(51, 52, 50);
+    border-radius: 1.5rem;
+    width: 70%;
+    height: 60vh;
+}
+
+.left-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.left-content h3 {
+    font-size: 2rem;
+    padding-bottom: 1.5rem;
+    text-align: center;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.heading {
+    display: flex;
+    /* flex-wrap: wrap; */
+    width: 100%;
+    justify-content: space-around;
+    padding-bottom: 4rem;
+}
+
+.titles {
+    color: #f5cc01;
+    margin-right: 1rem;
+
+    font-weight: bolder;
+}
+
+.right-content .heading p:nth-of-type(3) {
+    width: 30%;
+}
+.right-content .heading p:nth-of-type(2) {
+    width: 70%;
+}
+
+.right-content p {
+    width: 100%;
+    font-size: 1.5rem;
+    line-height: 3rem;
+}
+
+.right-content .review {
+    color: #f5cc01;
+    font-size: 2rem;
+    padding: 4rem 0 2rem;
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 0.1rem;
+    right: 1rem;
+    color: #087f5b;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    cursor: pointer;
+}
