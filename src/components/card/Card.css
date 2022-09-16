@@ -1,0 +1,36 @@
+.poster-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.poster {
+    width: 300px;
+    height: 450px;
+}
+
+.poster:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    scale: 1.03;
+}
+
+.popularity {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    text-align: center;
+    padding: 0.2rem;
+    background-color: #087f5b;
+    opacity: 0.8;
+    border-radius: 0.5rem;
+    width: 20%;
+}
+
+.popularity p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+.popularity p span {
+    font-size: 1.5rem;
+}

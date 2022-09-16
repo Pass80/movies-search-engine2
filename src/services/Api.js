@@ -72,7 +72,6 @@ export const getResults = ({ query, sort, year, page }) => {
                 return acc;
             }, {});
         });
-        console.log(values[1]);
 
         return values[1];
     });

@@ -6,6 +6,7 @@ class SearchInput extends Component {
     constructor() {
         super();
         this.timer = null;
+        this.timer2 = null;
 
         this.state = {
             query: '',
@@ -47,13 +48,15 @@ class SearchInput extends Component {
                     onFocus={(e) => {
                         this.autoCompleteHandler(e.target.value);
                     }}
-                    onBlur={() =>
+                    onBlur={() => {
+                        // first the timer should be cleared
+                        clearTimeout(this.timer2);
                         // add time out to insert the content of clicked list item in the input field
                         // before the list is removed
-                        setTimeout(() => {
+                        this.timer2 = setTimeout(() => {
                             this.setState({ autoCompleteList: [] });
-                        }, 100)
-                    }
+                        }, 100);
+                    }}
                     onKeyUp={(e) => {
                         if (this.state.autoCompleteList.length > 0) {
                             const key = e.key;

@@ -4,25 +4,44 @@
 }
 
 .query-container input {
+    outline: none;
     width: 50rem;
     height: 3rem;
+}
+
+form input {
+    outline: none;
+}
+
+form button {
+    background-color: #087f5b;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 0 3.2rem;
+}
+form button:hover {
+    background-color: #3b6d22;
 }
 
 .autocomplete-results {
     position: absolute;
     left: 0;
     top: 100%;
+    background-color: #fff;
     list-style: none;
     margin: 0;
     padding: 0;
     border: 1px solid black;
     min-width: 100%;
+    z-index: 2;
 }
 
 .autocomplete-results li {
     cursor: pointer;
     line-height: 2.2rem;
     padding: 0 0.5rem;
+    font-size: 2rem;
 }
 
 .autocomplete-results li:hover,
@@ -31,5 +50,6 @@
 }
 
 .autocomplete-results li span {
-    color: #027517;
+    color: #087f5b;
+    font-weight: 600;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Card from './components/card/Card';
+import Pagination from './components/pagination/Pagination';
 import ReleaseYear from './components/releaseYear/ReleaseYear';
 import SearchInput from './components/searchInput/SearchInput';
 import SortSelector from './components/sortSelector/SortSelector';
@@ -18,8 +19,22 @@ export default class App extends Component {
 
         this.state = {
             results: [],
+            currentPage: 1,
+            noOfPages: 0,
         };
     }
+
+    searchHandler = (page) => {
+        const { sort, query, year } = this.searchQueries;
+
+        getResults({ sort, query, year, page }).then((data) =>
+            this.setState({
+                results: data.results,
+                noOfPages: data.total_pages,
+                currentPage: data.page,
+            })
+        );
+    };
 
     render() {
         return (
@@ -28,14 +43,7 @@ export default class App extends Component {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            const { sort, query, year } = this.searchQueries;
-
-                            getResults({ sort, query, year, page: 1 }).then(
-                                (data) =>
-                                    this.setState({
-                                        results: data.results,
-                                    })
-                            );
+                            this.searchHandler(1);
                         }}
                     >
                         <SortSelector
@@ -58,11 +66,25 @@ export default class App extends Component {
                     </form>
                 </header>
                 <section>
-                    {this.state.results.map((card) => (
-                        <Card key={card.id} details={card} />
-                    ))}
+                    {this.state.results.length > 0 && (
+                        <>
+                            {this.state.results.map((card) => (
+                                <Card key={card.id} details={card} />
+                            ))}
+                        </>
+                    )}
                 </section>
-                <footer></footer>
+                <footer>
+                    {this.state.results.length > 0 && (
+                        <div>
+                            <Pagination
+                                currentPage={this.state.currentPage}
+                                noOfPages={this.state.noOfPages}
+                                onSelect={this.searchHandler}
+                            />
+                        </div>
+                    )}
+                </footer>
             </>
         );
     }
