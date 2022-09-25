@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import './Card.css';
 
 const Card = ({ details }) => {
-    {
-        console.log(details);
-    }
     const [modal, setModal] = useState(false);
 
     const handleClick = (event) => {
@@ -14,11 +11,8 @@ const Card = ({ details }) => {
     const handleClose = (e) => {
         e.stopPropagation();
         setModal((prev) => !prev);
-        console.log('hi');
-        console.log(modal);
     };
 
-    console.log(modal);
     return (
         <div className="poster-container" onClick={handleClick}>
             <img

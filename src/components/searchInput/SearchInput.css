@@ -63,3 +63,13 @@ form button:active {
     color: #087f5b;
     font-weight: 600;
 }
+
+@media only screen and (max-width: 550px) {
+    form {
+        display: grid;
+        grid-template-columns: 30% 70%;
+    }
+    .query-container {
+        width: 100%;
+    }
+}
