@@ -56,7 +56,7 @@
     position: relative;
     color: #fff;
     font-weight: 700;
-    background-image: url('/public/images/rows-red-seats-theater.jpg');
+    background-image: url('../../assets/images/rows-red-seats-theater.jpg');
     background-position: center;
     background-size: cover;
     /* background-color: rgba(140, 142, 138, 0.8); */

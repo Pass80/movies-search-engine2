@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Card.css';
+import star from '../../assets/images/star.png';
+import noPoster from '../../assets/images/no-poster.png';
 
 const Card = ({ details }) => {
     const [modal, setModal] = useState(false);
@@ -20,12 +22,12 @@ const Card = ({ details }) => {
                 src={
                     details.posterPaths.w342 ||
                     details.backdropPaths.w300 ||
-                    'images/no-poster.png'
+                    noPoster
                 }
                 alt="movie-poster"
             />
             <div className="popularity">
-                <img src="images/star.png" alt="star" />
+                <img src={star} alt="star" />
                 <p>
                     {details.vote_average}
                     <span>/10</span>
@@ -40,7 +42,7 @@ const Card = ({ details }) => {
                                 src={
                                     details.posterPaths.w342 ||
                                     details.backdropPaths.w300 ||
-                                    'images/no-poster.png'
+                                    '../../assets/images/no-poster.png'
                                 }
                                 alt="poster"
                                 width="200px"
@@ -73,11 +75,7 @@ const Card = ({ details }) => {
                                     <span className="titles">Rating:</span>
                                     {details.vote_average}
                                     <span>/10</span>
-                                    <img
-                                        src="images/star.png"
-                                        alt="star"
-                                        width="12px"
-                                    />
+                                    <img src={star} alt="star" width="12px" />
                                 </p>
                                 <p>
                                     <span className="titles">Votes:</span>
